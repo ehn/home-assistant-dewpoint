@@ -58,6 +58,7 @@ class DewPointSensor(Entity):
         self.entity_id = async_generate_entity_id(
             ENTITY_ID_FORMAT, device_id, hass=hass
         )
+        self._unique_id = device_id
         self._name = name
 
         self._entity_dry_temp = entity_dry_temp
@@ -80,6 +81,11 @@ class DewPointSensor(Entity):
 
         self.hass.bus.async_listen_once(
             EVENT_HOMEASSISTANT_START, sensor_startup)
+
+    @property
+    def unique_id(self):
+        """Return the unique_id of the sensor."""
+        return self._unique_id
 
     @property
     def name(self):
